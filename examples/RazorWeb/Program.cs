@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Piranha;
 using Piranha.AspNetCore.Identity.SQLite;
 using Piranha.AttributeBuilder;
 using Piranha.Data.EF.SQLite;
 using Piranha.Manager.Editor;
+using RazorWeb.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -72,5 +74,9 @@ app.UsePiranha(options =>
     options.UseTinyMCE();
     options.UseIdentity();
 });
+
+App.Blocks.Register<RazorWeb.Models.RawHtmlBlock>();
+App.Modules.Manager().Scripts.Add("~/assets/js/rawhtml-block.js");
+App.Modules.Manager().Styles.Add("~/assets/css/rawhtml-block.css");
 
 app.Run();
